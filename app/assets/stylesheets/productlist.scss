@@ -1,3 +1,113 @@
 // Place all the styles related to the productlist controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+@charset "utf-8";
+/* CSS Document */
+
+.pc-ex{}
+.sp-ex{display:none;}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-style: solid;
+    border-color: red;
+}
+.header {
+    width: 1000px;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+/* メイン */
+.main {
+    width: 1200px;
+/*    border-style: solid;  */
+/*    border-color: blue;   */
+    display: flex;
+    flex-direction: row;
+}
+/* 楽天用のボックス */
+.rakuten_box {
+    width: 50%;
+    margin-right: 5px;
+}
+/* Amazon用のボックス */
+.amazon_box {
+    width: 50%;
+    margin-left: 5px;
+}
+
+/* ソート条件ボックス */
+.sort_box {
+    display: flex;
+    flex-direction: row;
+
+}
+.form-check {
+    margin-left: 10px;
+}
+
+
+/* 商品カード */
+.card-columns {
+    columns: 1;
+}
+.card-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.search-box {
+    border-style: solid;
+    border-color: coral;
+}
+.search-text {
+    width: 70%;
+}
+.card {
+    font-size: small;
+}
+.media-body h6 {
+    font-weight: bold;
+}
+
+h1 {
+    font-size: 36px;
+}
+h2 {
+    font-size: 30px;
+}
+h3 {
+    font-size: 24px;
+}
+h4 {
+    font-size: 18px;
+}
+h5 {
+    font-size: 16px;
+}
+h6 {
+    font-size: 14px;
+}
+p {
+    font-size: 14px;
+}
+
+/*
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+*/
+
+/*タブレットレイアウト：px以下*/
+
+@media only screen and (max-width: 750px) {
+img, object, embed, video {max-width: 100%;height:auto;}
+.pc-ex{ display:none;}
+.sp-ex{display:block;}
+}

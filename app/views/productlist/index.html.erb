@@ -1,0 +1,138 @@
+<div class="wrapper">
+
+    <div class="header">
+        <%= form_tag("/", method: "get", class: "search-box") do %>
+                <div class="input-group search-box">
+                    <input type="text" class="form-control search-text" id="keyword" name="keyword" value="<%= @keyword %>">
+                    <div class="input-group-append">
+                        <input type="submit" value="検索" class="btn btn-primary">
+                    </div>
+                </div>
+                <div class="sort_box">
+                <p>並び替え：</p>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="sort_radio" id="sort_radio_1" value="standard" <%= "checked" if @sort=="standard" || @sort==nil %>>
+                    <label class="form-check-label" for="sort_radio_1">標準</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="sort_radio" id="sort_radio_2" value="+itemPrice" <%= "checked" if @sort=="+itemPrice"%>>
+                    <label class="form-check-label" for="sort_radio_2">価格が安い</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="sort_radio" id="sort_radio_3" value="-itemPrice" <%= "checked" if @sort=="-itemPrice"%>>
+                    <label class="form-check-label" for="sort_radio_3">価格が高い</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="sort_radio" id="sort_radio_4" value="-updateTimestamp" <%= "checked" if @sort=="-updateTimestamp"%>>
+                    <label class="form-check-label" for="sort_radio_4">新着順</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="sort_radio" id="sort_radio_5" value="-reviewCount" <%= "checked" if @sort=="-reviewCount"%>>
+                    <label class="form-check-label" for="sort_radio_5">レビューの件数が多い</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="sort_radio" id="sort_radio_6" value="-reviewAverage" <%= "checked" if @sort=="-reviewAverage"%>>
+                    <label class="form-check-label" for="sort_radio_6">レビュー平均点が高い</label>
+                </div>
+
+            </div>
+        <% end %>
+        <p>
+            <%= @message %>
+        </p>
+    </div>
+    <%= @sort_radio %>
+    <div class="main">
+
+        <!-- 楽天 --->
+        <div class="rakuten_box card">
+            
+            <div class="card-header">
+                <h4>楽　　　天</h4>
+            </div>
+            <div class="card-body">
+                <div class="card-columns">
+
+                    <% @result["Items"].each do |value| %>
+                        <div class="card">
+                            <div class="media">
+                                <img src="<%= value["Item"]["mediumImageUrls"][0]["imageUrl"] %>">
+                                <div class="media-body">
+                                    <h6><%= value["Item"]["itemName"] %></h6>
+                                    <p><%= value["Item"]["itemPrice"] %>円（税込）</p>
+                                    <p>総合評価：<%= value["Item"]["reviewAverage"] %></p>
+                                    <p><a href="<%= value["Item"]["itemUrl"] %>" target="_blank">商品ページへ</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    <% end %>
+
+                </div>
+
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            
+            </div>
+
+        </div>
+
+        <!-- Amazon --->
+        <div class="amazon_box card">
+            
+            <div class="card-header">
+                <h4>A m a z o n</h4>
+            </div>
+            <div class="card-body">
+                <div class="card-columns">
+
+                    <% @result["Items"].each do |value| %>
+                        <div class="card">
+                            <div class="media">
+                                <img src="<%= value["Item"]["mediumImageUrls"][0]["imageUrl"] %>">
+                                <div class="media-body">
+                                    <h6><%= value["Item"]["itemName"] %></h6>
+                                    <p><%= value["Item"]["itemPrice"] %>円（税込）</p>
+                                    <p>総合評価：<%= value["Item"]["reviewAverage"] %></p>
+                                    <p><a href="<%= value["Item"]["itemUrl"] %>" target="_blank">商品ページへ</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    <% end %>
+
+                </div>
+
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            
+            </div>
+
+        </div>
+
+    </div>
+</div>
