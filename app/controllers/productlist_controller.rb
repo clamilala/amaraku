@@ -3,6 +3,9 @@ class ProductlistController < ApplicationController
     def index
         # 検索ワード
         @keyword = params[:keyword]
+
+        return if @keyword==nil
+
         # ソート順
         @sort = params[:sort_radio]
 

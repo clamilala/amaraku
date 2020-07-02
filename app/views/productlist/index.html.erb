@@ -53,18 +53,20 @@
             <div class="card-body">
                 <div class="card-columns">
 
-                    <% @result["Items"].each do |value| %>
-                        <div class="card">
-                            <div class="media">
-                                <img src="<%= value["Item"]["mediumImageUrls"][0]["imageUrl"] %>">
-                                <div class="media-body">
-                                    <h6><%= value["Item"]["itemName"] %></h6>
-                                    <p><%= value["Item"]["itemPrice"] %>円（税込）</p>
-                                    <p>総合評価：<%= value["Item"]["reviewAverage"] %></p>
-                                    <p><a href="<%= value["Item"]["itemUrl"] %>" target="_blank">商品ページへ</a></p>
+                    <% if @result != nil %>
+                        <% @result["Items"].each do |value| %>
+                            <div class="card">
+                                <div class="media">
+                                    <img src="<%= value["Item"]["mediumImageUrls"][0]["imageUrl"] %>">
+                                    <div class="media-body">
+                                        <h6><%= value["Item"]["itemName"] %></h6>
+                                        <p><%= value["Item"]["itemPrice"] %>円（税込）</p>
+                                        <p>総合評価：<%= value["Item"]["reviewAverage"] %></p>
+                                        <p><a href="<%= value["Item"]["itemUrl"] %>" target="_blank">商品ページへ</a></p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        <% end %>
                     <% end %>
 
                 </div>
@@ -98,18 +100,20 @@
             <div class="card-body">
                 <div class="card-columns">
 
-                    <% @result["Items"].each do |value| %>
-                        <div class="card">
-                            <div class="media">
-                                <img src="<%= value["Item"]["mediumImageUrls"][0]["imageUrl"] %>">
-                                <div class="media-body">
-                                    <h6><%= value["Item"]["itemName"] %></h6>
-                                    <p><%= value["Item"]["itemPrice"] %>円（税込）</p>
-                                    <p>総合評価：<%= value["Item"]["reviewAverage"] %></p>
-                                    <p><a href="<%= value["Item"]["itemUrl"] %>" target="_blank">商品ページへ</a></p>
+                    <% if @result != nil %>
+                        <% @result["Items"].each do |value| %>
+                            <div class="card">
+                                <div class="media">
+                                    <img src="<%= value["Item"]["mediumImageUrls"][0]["imageUrl"] %>">
+                                    <div class="media-body">
+                                        <h6><%= value["Item"]["itemName"] %></h6>
+                                        <p><%= value["Item"]["itemPrice"] %>円（税込）</p>
+                                        <p>総合評価：<%= value["Item"]["reviewAverage"] %></p>
+                                        <p><a href="<%= value["Item"]["itemUrl"] %>" target="_blank">商品ページへ</a></p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        <% end %>
                     <% end %>
 
                 </div>
