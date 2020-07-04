@@ -6,6 +6,14 @@ class ProductlistController < ApplicationController
         # ソート順
         @sort = params[:sort_radio]
 
+        # 最低金額
+        @minPrice = params[:minPrice]
+        # 最高金額
+        @maxPrice = params[:maxPrice]
+
+        # ページ数
+        @page = params[:page]!=nil ? params[:page] : "1"
+
         # [クエリパラメータ]
         # URI.encode_www_formを使って「application/x-www-form-urlencoded」形式の文字列に変換
         # 文字列はURLエンコードされた形式に変換（半角スペースの"+"への変換等）
@@ -15,8 +23,12 @@ class ProductlistController < ApplicationController
         # 'あ' => '%E3%81%82'
         #
         # hash形式でパラメタ文字列を指定し、URL形式にエンコード
-        params_keyword = URI.encode_www_form({keyword: @keyword})
-        params_sort = URI.encode_www_form({sort: @sort})
+        params_keyword = URI.encode_www_form({keyword: @keyword}) if @keyword != nil
+        params_sort = URI.encode_www_form({sort: @sort}) if @sort != nil
+        params_minPrice = URI.encode_www_form({minPrice: @minPrice}) if @minPrice != nil
+        params_maxPrice = URI.encode_www_form({maxPrice: @maxPrice}) if @maxPrice != nil
+        params_page = URI.encode_www_form({page: @page})
+
         # [URI]
         # URI.parseは与えられたURIからURI::Genericのサブクラスのインスタンスを返す
         # -> 今回はHTTPプロトコルなのでURI::HTTPクラスのインスタンスが返される
@@ -29,7 +41,14 @@ class ProductlistController < ApplicationController
         # uri.query  => 'param1=foo&param2=bar+baz&param3=%E3%81%82'
         #
         # URIを解析し、hostやportをバラバラに取得できるようにする
-        uri = URI.parse("https://app.rakuten.co.jp/services/api/IchibaItem/Search/20170706?format=json&#{params_keyword}&#{params_sort}&applicationId=1056004703858248428")
+        uri_text = "https://app.rakuten.co.jp/services/api/IchibaItem/Search/20170706?format=json&applicationId=1056004703858248428"
+        uri_text = uri_text + "&#{params_keyword}" if @keyword != nil
+        uri_text = uri_text + "&#{params_sort}" if @sort != nil
+        uri_text = uri_text + "&#{params_minPrice}" if @minPrice != nil
+        uri_text = uri_text + "&#{params_maxPrice}" if @maxPrice != nil
+        uri_text = uri_text + "&#{params_page}"
+
+        uri = URI.parse(uri_text)
 
         # リクエストパラメタを、インスタンス変数に格納
         @query = uri.query

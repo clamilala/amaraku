@@ -2,13 +2,17 @@
 
     <div class="header">
         <%= form_tag("/", method: "get", class: "search-box") do %>
-                <div class="input-group search-box">
-                    <input type="text" class="form-control search-text" id="keyword" name="keyword" value="<%= @keyword %>">
-                    <div class="input-group-append">
-                        <input type="submit" value="検索" class="btn btn-primary">
-                    </div>
+
+            <!-- 検索ワード --->
+            <div class="input-group">
+                <input type="text" class="form-control search-text" id="keyword" name="keyword" value="<%= @keyword %>">
+                <div class="input-group-append">
+                    <input type="submit" value="検索" class="btn btn-primary">
                 </div>
-                <div class="sort_box">
+            </div>
+
+            <!-- 並び替え条件 --->
+            <div class="sort_box">
                 <p>並び替え：</p>
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="sort_radio" id="sort_radio_1" value="standard" <%= "checked" if @sort=="standard" || @sort==nil %>>
@@ -34,12 +38,18 @@
                     <input class="form-check-input" type="radio" name="sort_radio" id="sort_radio_6" value="-reviewAverage" <%= "checked" if @sort=="-reviewAverage"%>>
                     <label class="form-check-label" for="sort_radio_6">レビュー平均点が高い</label>
                 </div>
-
             </div>
+
+            <!-- 値段 --->
+            <div class="price_box">
+                <p>値　　段：</p>
+                <input type="text" class="form-control form-control-sm price_text_box" id="minPrice" name="minPrice" value="<%= @minPrice %>">円
+                ～
+                <input type="text" class="form-control form-control-sm price_text_box" id="maxPrice" name="maxPrice" value="<%= @maxPrice %>">円
+            </div>
+
         <% end %>
-        <p>
-            <%= @message %>
-        </p>
+<!--        <p>< %= @message %></p> -->
     </div>
     <%= @sort_radio %>
     <div class="main">
@@ -55,17 +65,21 @@
 
                     <% if @result != nil %>
                         <% @result["Items"].each do |value| %>
-                            <div class="card">
-                                <div class="media">
-                                    <img src="<%= value["Item"]["mediumImageUrls"][0]["imageUrl"] %>">
-                                    <div class="media-body">
-                                        <h6><%= value["Item"]["itemName"] %></h6>
-                                        <p><%= value["Item"]["itemPrice"] %>円（税込）</p>
-                                        <p>総合評価：<%= value["Item"]["reviewAverage"] %></p>
-                                        <p><a href="<%= value["Item"]["itemUrl"] %>" target="_blank">商品ページへ</a></p>
+                            
+                            <a href="<%= value["Item"]["itemUrl"] %>" target="_blank">
+                                <div class="card">
+                                    <div class="media">
+                                        <img src="<%= value["Item"]["mediumImageUrls"][0]["imageUrl"] %>">
+                                        <div class="media-body">
+                                            <h6><%= value["Item"]["itemName"] %></h6>
+                                            <p><%= value["Item"]["itemPrice"].to_s(:delimited) %>円（税込）</p>
+                                            <p>総合評価：<%= value["Item"]["reviewAverage"] %></p>
+                                            <p>レビュー件数：<%= value["Item"]["reviewCount"] %><p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            </a>
+
                         <% end %>
                     <% end %>
 
@@ -101,23 +115,28 @@
                 <div class="card-columns">
 
                     <% if @result != nil %>
+
                         <% @result["Items"].each do |value| %>
-                            <div class="card">
-                                <div class="media">
-                                    <img src="<%= value["Item"]["mediumImageUrls"][0]["imageUrl"] %>">
-                                    <div class="media-body">
-                                        <h6><%= value["Item"]["itemName"] %></h6>
-                                        <p><%= value["Item"]["itemPrice"] %>円（税込）</p>
-                                        <p>総合評価：<%= value["Item"]["reviewAverage"] %></p>
-                                        <p><a href="<%= value["Item"]["itemUrl"] %>" target="_blank">商品ページへ</a></p>
+
+                            <a href="<%= value["Item"]["itemUrl"] %>" target="_blank">
+                                <div class="card">
+                                    <div class="media">
+                                        <img src="<%= value["Item"]["mediumImageUrls"][0]["imageUrl"] %>">
+                                        <div class="media-body">
+                                            <h6><%= value["Item"]["itemName"] %></h6>
+                                            <p><%= value["Item"]["itemPrice"] %>円（税込）</p>
+                                            <p>総合評価：<%= value["Item"]["reviewAverage"] %></p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            </a>
+
                         <% end %>
                     <% end %>
 
                 </div>
 
+                <!-- ページネーション --->
                 <ul class="pagination">
                     <li class="page-item">
                         <a class="page-link" href="#" aria-label="Previous">
