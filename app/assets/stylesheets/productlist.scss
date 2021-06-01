@@ -42,7 +42,9 @@ body {
 /*    border-style: solid;  */
 /*    border-color: blue;   */
     display: flex;
-    flex-direction: row;
+    /* flex-direction: row; */ /* Amazon用のボックスを表示する場合は使用する */
+    flex-direction: column; /* Amazon用のボックスを表示する場合は消す */
+    align-items: center;    /* Amazon用のボックスを表示する場合は消す */
 }
 /* 楽天用のボックス */
 .rakuten_box {
